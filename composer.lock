@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "b93ad4f855ee187bb5a88acd496354c6",
+    "content-hash": "882a594c0ec3da145e9b009c21ee53a8",
     "packages": [],
     "packages-dev": [
         {
@@ -651,12 +651,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/laravel/framework.git",
-                "reference": "f0a7c3c3e8082ac7b92f9ad347b1893e679a0566"
+                "reference": "de4de2725ad7868a776137a25489479dc2aef233"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/laravel/framework/zipball/f0a7c3c3e8082ac7b92f9ad347b1893e679a0566",
-                "reference": "f0a7c3c3e8082ac7b92f9ad347b1893e679a0566",
+                "url": "https://api.github.com/repos/laravel/framework/zipball/de4de2725ad7868a776137a25489479dc2aef233",
+                "reference": "de4de2725ad7868a776137a25489479dc2aef233",
                 "shasum": ""
             },
             "require": {
@@ -790,7 +790,7 @@
                 "framework",
                 "laravel"
             ],
-            "time": "2019-12-24T17:45:19+00:00"
+            "time": "2019-12-25T15:41:03+00:00"
         },
         {
             "name": "league/flysystem",
@@ -1995,12 +1995,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/sebastianbergmann/phpunit.git",
-                "reference": "9cc006cfa1e5424228c95a60d501d86e73e7f317"
+                "reference": "7870c78da3c5e4883eaef36ae47853ebb3cb86f2"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/sebastianbergmann/phpunit/zipball/9cc006cfa1e5424228c95a60d501d86e73e7f317",
-                "reference": "9cc006cfa1e5424228c95a60d501d86e73e7f317",
+                "url": "https://api.github.com/repos/sebastianbergmann/phpunit/zipball/7870c78da3c5e4883eaef36ae47853ebb3cb86f2",
+                "reference": "7870c78da3c5e4883eaef36ae47853ebb3cb86f2",
                 "shasum": ""
             },
             "require": {
@@ -2070,7 +2070,7 @@
                 "testing",
                 "xunit"
             ],
-            "time": "2019-12-10T14:54:12+00:00"
+            "time": "2019-12-25T14:49:39+00:00"
         },
         {
             "name": "psr/container",
@@ -4734,6 +4734,8 @@
     },
     "prefer-stable": false,
     "prefer-lowest": false,
-    "platform": [],
+    "platform": {
+        "ext-json": "*"
+    },
     "platform-dev": []
 }
