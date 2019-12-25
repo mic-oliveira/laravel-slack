@@ -1,0 +1,23 @@
+{
+    "name": "michael/slack-message",
+    "license": "GPL",
+    "authors": [
+        {
+            "name": "Michael de Oliveira Ferreira",
+            "email": "oliveiramichael@outlook.com"
+        }
+    ],
+    "minimum-stability": "dev",
+    "autoload": {
+        "psr-4": {
+            "SlackMessage\\": "./src"
+        }
+    },
+    "require": {
+        "ext-json": "*"
+    },
+    "require-dev": {
+        "orchestra/testbench": "^5.0@dev",
+        "guzzlehttp/guzzle": "^7.0@dev"
+    }
+}
