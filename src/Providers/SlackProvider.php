@@ -18,7 +18,7 @@ use SlackMessage\Models\SlackFilterUser;
  */
 class SlackProvider extends ServiceProvider
 {
-    const CONFIG_PATH = __DIR__.'\..\..\config\config.php';
+    const CONFIG_PATH = '..\..\config\config.php';
 
     /**
      *
