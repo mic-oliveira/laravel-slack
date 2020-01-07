@@ -20,7 +20,6 @@ class SlackProvider extends ServiceProvider
 {
     const CONFIG_PATH = __DIR__.'\..\..\config\config.php';
 
-    protected $defer = true;
     /**
      *
      */
