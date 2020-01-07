@@ -18,7 +18,6 @@ use SlackMessage\Models\SlackFilterUser;
  */
 class SlackProvider extends ServiceProvider
 {
-    const CONFIG_PATH = '../../config/config.php';
 
     /**
      *
@@ -27,7 +26,7 @@ class SlackProvider extends ServiceProvider
     {
         $this->publishes(
             [
-                realpath(self::CONFIG_PATH) => config_path('slack-message.php')
+                realpath(__DIR__.'/../../config/config.php') => config_path('slack-message.php')
             ],
             'config'
         );
@@ -39,7 +38,7 @@ class SlackProvider extends ServiceProvider
      */
     public function register()
     {
-        $this->mergeConfigFrom(self::CONFIG_PATH, 'slack-message');
+        $this->mergeConfigFrom(realpath(__DIR__.'/../../config/config.php'), 'slack-message');
         app()->when([
             BaseFilter::class,
             SlackFilterChannel::class,
