@@ -19,5 +19,12 @@
     "require-dev": {
         "orchestra/testbench": "^5.0@dev",
         "guzzlehttp/guzzle": "^7.0@dev"
+    },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "SlackMessage\\Providers\\SlackProvider"
+            ]
+        }
     }
 }
