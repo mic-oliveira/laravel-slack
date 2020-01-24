@@ -1,7 +1,8 @@
 # Slack Message
 
 
-Integration with Slack API to send messages to groups and users.
+
+Slack integration for Laravel
 
 ## Getting Started
 
