@@ -2,11 +2,9 @@
 
 namespace SlackMessage\Models;
 
+use Illuminate\Support\Collection;
 use GuzzleHttp\Client;
 use Illuminate\Contracts\Container\BindingResolutionException;
-use Illuminate\Support\Facades\Log;
-use phpDocumentor\Reflection\Types\Null_;
-use phpDocumentor\Reflection\Types\Nullable;
 
 /**
  * Class BaseMessage
@@ -29,13 +27,18 @@ class BaseMessage
     }
 
     /**
-     * @param array $channels
+     * @param array|Collection|string $channels
      * @return static
      * @throws BindingResolutionException
      */
-    static public function to(array $channels=[]): self
+    static public function to($channels): self
     {
-        //dd($channels);
+        if ($channels instanceof Collection) {
+            $channels = $channels->all();
+        }
+
+        $channels = is_array($channels) ? $channels : func_get_args();
+
         if(is_null(self::$instance)) {
             self::$instance = app()->make(BaseMessage::class);
         }
