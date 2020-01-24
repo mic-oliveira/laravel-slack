@@ -2,22 +2,18 @@
 
 namespace SlackMessage\Providers;
 
-
 use Composer\Config;
 use GuzzleHttp\Client;
 use Illuminate\Support\ServiceProvider;
 use SlackMessage\Facades\Slack;
 use SlackMessage\Models\BaseFilter;
 use SlackMessage\Models\BaseMessage;
-use SlackMessage\Models\Sender;
 use SlackMessage\Models\SlackFilterChannel;
 use SlackMessage\Models\SlackFilterGroups;
 use SlackMessage\Models\SlackFilterUser;
 
 /**
- * Class SlackProvider
- *
- * @package SlackMessage\Providers
+ * Class SlackProvider.
  */
 class SlackProvider extends ServiceProvider
 {
@@ -38,47 +34,40 @@ class SlackProvider extends ServiceProvider
         parent::__construct($app);
     }
 
-    /**
-     *
-     */
     public function boot()
     {
         $this->publishes(
             [
-                realpath($this->path) => config_path('slack-message.php')
+                realpath($this->path) => config_path('slack-message.php'),
             ],
             'config'
         );
-
     }
 
-    /**
-     *
-     */
     public function register()
     {
         $this->mergeConfigFrom(realpath($this->path), 'slack-message');
         app()->when(
             [
-            BaseFilter::class,
-            SlackFilterChannel::class,
-            SlackFilterGroups::class,
-            SlackFilterUser::class,
-            BaseMessage::class
+                BaseFilter::class,
+                SlackFilterChannel::class,
+                SlackFilterGroups::class,
+                SlackFilterUser::class,
+                BaseMessage::class,
             ]
         )->needs(Client::class)
             ->give(
                 function () {
                     return new Client(
                         [
-                        'base_uri' => config('slack-message.slack_api_url'),
-                        'headers'   =>  [
-                        'Authorization' =>  'Bearer '.config('slack-message.slack_bot_token'),
-                        'Accept'        =>  'application/json',
-                        'Content-type'  =>  'application/json',
-                        'User-Agent'    =>  'PostmanRuntime/7.21.0'
-                        ],
-                        'verify'    =>  false
+                            'base_uri' => config('slack-message.slack_api_url'),
+                            'headers'   =>  [
+                                'Authorization' =>  'Bearer '.config('slack-message.slack_bot_token'),
+                                'Accept'        =>  'application/json',
+                                'Content-type'  =>  'application/json',
+                                'User-Agent'    =>  'PostmanRuntime/7.21.0',
+                            ],
+                            'verify'    =>  false,
                         ]
                     );
                 }
@@ -96,6 +85,4 @@ class SlackProvider extends ServiceProvider
     {
         return [Slack::class];
     }
-
-
 }

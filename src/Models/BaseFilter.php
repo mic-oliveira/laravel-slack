@@ -1,16 +1,12 @@
 <?php
 
-
 namespace SlackMessage\Models;
-
 
 use GuzzleHttp\Client;
 use Illuminate\Support\Collection;
 
 /**
- * Class BaseFilter
- *
- * @package SlackMessage\Models
+ * Class BaseFilter.
  */
 abstract class BaseFilter
 {
@@ -48,13 +44,13 @@ abstract class BaseFilter
     /**
      * @return Collection
      */
-    abstract function get():Collection;
+    abstract public function get(): Collection;
 
     /**
      * @param  array $array
      * @return Collection
      */
-    public function filter($array = []) : Collection
+    public function filter($array = []): Collection
     {
         $list = $this->get();
         $filtered = collect();
@@ -62,11 +58,12 @@ abstract class BaseFilter
             ->each(
                 function ($key) use ($list, $filtered, $array) {
                     $search = $list->whereIn($key, $this->sanitizeSearch($array));
-                    if($search->count()) {
+                    if ($search->count()) {
                         $filtered->push($search->first());
                     }
                 }
             );
+
         return $filtered;
     }
 
@@ -78,24 +75,22 @@ abstract class BaseFilter
     {
         return collect($array)->map(
             function ($search) {
-                if($search[0] === $this->sanitizeSearchPrefix) {
-                      return str_replace(['#','@'], '', $search);
+                if ($search[0] === $this->sanitizeSearchPrefix) {
+                    return str_replace(['#', '@'], '', $search);
                 }
+
                 return false;
             }
         )->filter();
     }
 
-    /**
-     *
-     */
     protected function mergeKeys(): void
     {
-        if(is_null($this->filterKeys)) { return;
+        if (is_null($this->filterKeys)) {
+            return;
         }
         $this->filterDefaultKeys = array_merge(
             $this->filterDefaultKeys, is_array($this->filterKeys) ? $this->filterKeys : [$this->filterKeys]
         );
-        return;
     }
 }

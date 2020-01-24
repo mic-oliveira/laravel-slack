@@ -90,5 +90,5 @@ return [
     |
     |
      */
-    'app_image' =>  'https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcS_0Qk6g7HfyFsks5MDkJFKw7EYO3nrY0JvEH318XbXdzJuqiEi'
+    'app_image' =>  'https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcS_0Qk6g7HfyFsks5MDkJFKw7EYO3nrY0JvEH318XbXdzJuqiEi',
 ];
