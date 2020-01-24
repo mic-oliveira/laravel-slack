@@ -1,3 +1,6 @@
+<p align="center">
+  <img width="400" src="https://raw.githubusercontent.com/JonatanLima/logos-arts/master/imgs/laravel_slack.png" />
+</p>
 # Laravel Slack
 
 
