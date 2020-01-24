@@ -2,6 +2,7 @@
 
 namespace SlackMessage\Models;
 
+use Exception;
 use Illuminate\Support\Collection;
 use GuzzleHttp\Client;
 use Illuminate\Contracts\Container\BindingResolutionException;
@@ -12,6 +13,9 @@ use Illuminate\Contracts\Container\BindingResolutionException;
  */
 class BaseMessage
 {
+    /**
+     * @var Client
+     */
     private $client;
     private $to;
     private static $instance;
@@ -19,9 +23,11 @@ class BaseMessage
     /**
      * BaseMessage constructor.
      * @param Client $client
+     * @throws Exception
      */
     public function __construct(Client $client)
     {
+        $this->checkToken();
         $this->client = $client;
         self::$instance = $this;
     }
@@ -76,4 +82,12 @@ class BaseMessage
         return $response;
     }
 
+    /**
+     * @throws Exception
+     */
+    protected function checkToken(){
+        if(!config('slack-message.slack_bot_token')){
+            throw new Exception('Please set you slack token into config or env');
+        }
+    }
 }
