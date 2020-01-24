@@ -37,7 +37,7 @@ User
 Slack::to('@user')->send('message');
 ```
 
-## Running the tests
+<-- ## Running the tests
 
 Explain how to run the automated tests for this system
 
@@ -56,7 +56,7 @@ Explain what these tests test and why
 ```
 Give an example
 ```
-
+-->
 ## Versioning
 
 We use [SemVer](http://semver.org/) for versioning. For the versions available, see the [tags on this repository](https://github.com/your/project/tags). 
@@ -65,7 +65,7 @@ We use [SemVer](http://semver.org/) for versioning. For the versions available, 
 
 * **Michael de Oliveira Ferreira**  - [michael891989](https://github.com/michael891989/)
 * **Aron Peyroteo Cardoso**         - [aronpc](https://github.com/aronpc)
-* **Jonatan dos Santos Lime**       - [JonatanLima](https://github.com/JonatanLima)
+* **Jonatan dos Santos Lima**       - [JonatanLima](https://github.com/JonatanLima)
 
 <!--See also the list of [contributors](https://github.com/your/project/contributors) who participated in this project.-->
 
