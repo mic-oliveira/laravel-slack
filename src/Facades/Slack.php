@@ -7,6 +7,7 @@ use SlackMessage\Models\BaseMessage as Slacker;
 
 /**
  * Class Slack
+ *
  * @package SlackMessage\Facades
  */
 class Slack extends Facade

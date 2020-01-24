@@ -8,11 +8,11 @@ use GuzzleHttp\Client;
 use Illuminate\Support\Collection;
 
 /**
- * Class SlackFilterChannel
+ * Class SlackFilterGroups
  *
  * @package SlackMessage\Models
  */
-class SlackFilterChannel extends BaseFilter
+class SlackFilterGroups extends BaseFilter
 {
     /**
      * @var string
@@ -36,9 +36,10 @@ class SlackFilterChannel extends BaseFilter
     public function get():Collection
     {
         try{
-            return collect(json_decode($this->client->get(config('slack-message.slack_channels_url'))->getBody()->getContents())->channels);
+            return collect(json_decode($this->client->get(config('slack-message.slack_groups_url'))->getBody()->getContents())->groups);
         }catch (Exception $exception){
             throw new Exception($exception->getMessage());
         }
     }
+
 }
