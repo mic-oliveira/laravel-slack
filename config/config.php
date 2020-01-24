@@ -20,7 +20,7 @@ return [
     |
     |
      */
-    'slack_bot_token'   => env('SLACK_BOT_TOKEN','xoxb-824134459393-885969835552-mvdJGwaNut5eMwGkUzHse8fh'),
+    'slack_bot_token'   => env('SLACK_BOT_TOKEN'),
 
     /*
     |----------------------------------------------------------------------------------
@@ -40,7 +40,6 @@ return [
     |
     |
      */
-
     'slack_channels' =>  ['#general'],
 
     /*
