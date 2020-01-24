@@ -33,29 +33,26 @@ class BaseMessage
     }
 
     /**
-     * @param array|Collection|string $channels
+     * @param array|Collection|string $search
      * @return static
      * @throws BindingResolutionException
      */
-    static public function to($channels): self
+    static public function to($search): self
     {
-        if ($channels instanceof Collection) {
-            $channels = $channels->all();
+        if ($search instanceof Collection) {
+            $search = $search->toArray();
         }
 
-        $channels = is_array($channels) ? $channels : func_get_args();
+        $search = is_array($search) ? $search : func_get_args();
 
         if(is_null(self::$instance)) {
             self::$instance = app()->make(BaseMessage::class);
         }
-        self::$instance->to = app()->make(SlackFilterChannel::class)->filter($channels)
-            ->concat((app()->make(SlackFilterUser::class)->filter($channels)));
+        //TODO: melhorar filtros
+        self::$instance->to = collect([])
+            ->concat(app()->make(SlackFilterChannel::class)->filter($search))
+            ->concat(app()->make(SlackFilterUser::class)->filter($search));
         return self::$instance;
-    }
-
-    public function setUser($user_token)
-    {
-
     }
 
     /**
