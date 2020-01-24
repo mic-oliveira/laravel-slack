@@ -24,7 +24,7 @@ class SlackFilterUserTest extends TestCase
     }
 
     /**
-     * @param Application $app
+     * @param  Application $app
      * @return array
      */
     protected function getPackageProviders($app)

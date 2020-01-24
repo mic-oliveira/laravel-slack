@@ -10,7 +10,7 @@ return [
     |
     |
      */
-    'slack_api_url' =>  env('SLACK_API_URL','https://slack.com/api/'),
+    'slack_api_url' =>  env('SLACK_API_URL', 'https://slack.com/api/'),
 
     /*
     |----------------------------------------------------------------------------------
@@ -20,7 +20,7 @@ return [
     |
     |
      */
-    'slack_bot_token'   => env('SLACK_BOT_TOKEN','xoxb-824134459393-885969835552-mvdJGwaNut5eMwGkUzHse8fh'),
+    'slack_bot_token'   => env('SLACK_BOT_TOKEN'),
 
     /*
     |----------------------------------------------------------------------------------
@@ -40,7 +40,6 @@ return [
     |
     |
      */
-
     'slack_channels' =>  ['#general'],
 
     /*
@@ -52,6 +51,16 @@ return [
     |
      */
     'slack_channels_url' => 'channels.list',
+
+    /*
+    |----------------------------------------------------------------------------------
+    |   BASE GROUPS/PRIVATE CHANNELS URL
+    |----------------------------------------------------------------------------------
+    | URL padrão para a lista de canais privados do slack
+    |
+    |
+     */
+    'slack_groups_url' => 'groups.list',
 
     /*
     |----------------------------------------------------------------------------------

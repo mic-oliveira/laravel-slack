@@ -14,11 +14,12 @@
         }
     },
     "require": {
-        "ext-json": "*"
+        "php": ">=7.2",
+        "ext-json": "*",
+        "guzzlehttp/guzzle": "^7.0@dev"
     },
     "require-dev": {
-        "orchestra/testbench": "^5.0@dev",
-        "guzzlehttp/guzzle": "^7.0@dev"
+        "orchestra/testbench": "^5.0@dev"
     },
     "extra": {
         "laravel": {

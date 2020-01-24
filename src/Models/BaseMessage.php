@@ -2,75 +2,99 @@
 
 namespace SlackMessage\Models;
 
+use Exception;
+use Illuminate\Support\Collection;
 use GuzzleHttp\Client;
 use Illuminate\Contracts\Container\BindingResolutionException;
-use Illuminate\Support\Facades\Log;
-use phpDocumentor\Reflection\Types\Null_;
-use phpDocumentor\Reflection\Types\Nullable;
 
 /**
  * Class BaseMessage
+ *
  * @package SlackMessage\Models
  */
 class BaseMessage
 {
+    /**
+     * @var Client
+     */
     private $client;
     private $to;
     private static $instance;
 
     /**
      * BaseMessage constructor.
-     * @param Client $client
+     *
+     * @param  Client $client
+     * @throws Exception
      */
     public function __construct(Client $client)
     {
+        $this->checkToken();
         $this->client = $client;
         self::$instance = $this;
     }
 
     /**
-     * @param array $channels
+     * @param  array|Collection|string $search
      * @return static
      * @throws BindingResolutionException
      */
-    static public function to(array $channels=[]): self
+    static public function to($search): self
     {
-        //dd($channels);
+        if ($search instanceof Collection) {
+            $search = $search->toArray();
+        }
+
+        $search = is_array($search) ? $search : func_get_args();
+
         if(is_null(self::$instance)) {
             self::$instance = app()->make(BaseMessage::class);
         }
-        self::$instance->to = app()->make(SlackFilterChannel::class)->filter($channels)
-            ->concat((app()->make(SlackFilterUser::class)->filter($channels)));
+        //TODO: melhorar filtros
+        self::$instance->to = collect([])
+            ->concat(app()->make(SlackFilterChannel::class)->filter($search))
+            ->concat(app()->make(SlackFilterGroups::class)->filter($search))
+            ->concat(app()->make(SlackFilterUser::class)->filter($search));
         return self::$instance;
     }
 
-    public function setUser($user_token)
-    {
-
-    }
-
     /**
-     * @param string $message
+     * @param  string $message
      * @return mixed
      */
     public function send(string $message)
     {
         $response = collect();
-        $this->to->map(function ($channel) use ($message,$response) {
-            $json = [
+        $this->to->map(
+            function ($channel) use ($message,$response) {
+                $json = [
                 'channel'   =>  $channel->id,
                 'text'      =>  $message
-            ];
-            $response->add($this->client->post(config('slack-message.slack_post_message'),
-                [
-                    'headers'   =>  [
+                ];
+                $response->add(
+                    $this->client->post(
+                        config('slack-message.slack_post_message'),
+                        [
+                        'headers'   =>  [
                         'Accept'        =>  'application/json',
                         'Content-Type'  =>  'application/json'
-                    ],
-                    'json' => $json
-                ]));
-        });
+                        ],
+                        'json' => $json
+                        ]
+                    )
+                );
+            }
+        );
         return $response;
     }
 
+    /**
+     * @throws Exception
+     */
+    protected function checkToken()
+    {
+        if(!config('slack-message.slack_bot_token')) {
+            throw new Exception('Please set you slack token into config or env');
+        }
+    }
 }
