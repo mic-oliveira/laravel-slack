@@ -19,6 +19,22 @@ use SlackMessage\Models\SlackFilterUser;
  */
 class SlackProvider extends ServiceProvider
 {
+    /**
+     * @var string
+     */
+    private $path;
+
+    /**
+     * Create a new service provider instance.
+     *
+     * @param  \Illuminate\Contracts\Foundation\Application  $app
+     * @return void
+     */
+    public function __construct($app)
+    {
+        $this->path = __DIR__.'/../../config/config.php';
+        parent::__construct($app);
+    }
 
     /**
      *
@@ -27,7 +43,7 @@ class SlackProvider extends ServiceProvider
     {
         $this->publishes(
             [
-                realpath(__DIR__.'/../../config/config.php') => config_path('slack-message.php')
+                realpath($this->path) => config_path('slack-message.php')
             ],
             'config'
         );
@@ -39,7 +55,7 @@ class SlackProvider extends ServiceProvider
      */
     public function register()
     {
-        $this->mergeConfigFrom(realpath(__DIR__.'/../../config/config.php'), 'slack-message');
+        $this->mergeConfigFrom(realpath($this->path), 'slack-message');
         app()->when([
             BaseFilter::class,
             SlackFilterChannel::class,
