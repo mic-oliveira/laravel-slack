@@ -1,6 +1,5 @@
 <?php
 
-
 namespace SlackMessage\Models;
 
 use Exception;
@@ -8,16 +7,14 @@ use GuzzleHttp\Client;
 use Illuminate\Support\Collection;
 
 /**
- * Class SlackFilterUser
- *
- * @package SlackMessage\Models
+ * Class SlackFilterUser.
  */
 class SlackFilterUser extends BaseFilter
 {
     /**
      * @var
      */
-    protected $sanitizeSearchPrefix ='@';
+    protected $sanitizeSearchPrefix = '@';
 
     /**
      * @var string
@@ -38,13 +35,12 @@ class SlackFilterUser extends BaseFilter
      * @return Collection
      * @throws Exception
      */
-    public function get():Collection
+    public function get(): Collection
     {
         try {
             return collect(json_decode($this->client->get(config('slack-message.slack_users_url'))->getBody()->getContents())->members);
-        }catch (Exception $exception){
+        } catch (Exception $exception) {
             throw new Exception($exception->getMessage());
         }
     }
-
 }

@@ -3,14 +3,12 @@
 namespace SlackMessage\Models;
 
 use Exception;
-use Illuminate\Support\Collection;
 use GuzzleHttp\Client;
 use Illuminate\Contracts\Container\BindingResolutionException;
+use Illuminate\Support\Collection;
 
 /**
- * Class BaseMessage
- *
- * @package SlackMessage\Models
+ * Class BaseMessage.
  */
 class BaseMessage
 {
@@ -39,7 +37,7 @@ class BaseMessage
      * @return static
      * @throws BindingResolutionException
      */
-    static public function to($search): self
+    public static function to($search): self
     {
         if ($search instanceof Collection) {
             $search = $search->toArray();
@@ -47,14 +45,15 @@ class BaseMessage
 
         $search = is_array($search) ? $search : func_get_args();
 
-        if(is_null(self::$instance)) {
-            self::$instance = app()->make(BaseMessage::class);
+        if (is_null(self::$instance)) {
+            self::$instance = app()->make(self::class);
         }
         //TODO: melhorar filtros
         self::$instance->to = collect([])
             ->concat(app()->make(SlackFilterChannel::class)->filter($search))
             ->concat(app()->make(SlackFilterGroups::class)->filter($search))
             ->concat(app()->make(SlackFilterUser::class)->filter($search));
+
         return self::$instance;
     }
 
@@ -68,23 +67,24 @@ class BaseMessage
         $this->to->map(
             function ($channel) use ($message,$response) {
                 $json = [
-                'channel'   =>  $channel->id,
-                'text'      =>  $message
+                    'channel'   =>  $channel->id,
+                    'text'      =>  $message,
                 ];
                 $response->add(
                     $this->client->post(
                         config('slack-message.slack_post_message'),
                         [
-                        'headers'   =>  [
-                        'Accept'        =>  'application/json',
-                        'Content-Type'  =>  'application/json'
-                        ],
-                        'json' => $json
+                            'headers'   =>  [
+                                'Accept'        =>  'application/json',
+                                'Content-Type'  =>  'application/json',
+                            ],
+                            'json' => $json,
                         ]
                     )
                 );
             }
         );
+
         return $response;
     }
 
@@ -93,7 +93,7 @@ class BaseMessage
      */
     protected function checkToken()
     {
-        if(!config('slack-message.slack_bot_token')) {
+        if (! config('slack-message.slack_bot_token')) {
             throw new Exception('Please set you slack token into config or env');
         }
     }

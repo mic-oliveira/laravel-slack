@@ -1,6 +1,5 @@
 <?php
 
-
 namespace SlackMessage\Models;
 
 use Exception;
@@ -8,16 +7,14 @@ use GuzzleHttp\Client;
 use Illuminate\Support\Collection;
 
 /**
- * Class SlackFilterGroups
- *
- * @package SlackMessage\Models
+ * Class SlackFilterGroups.
  */
 class SlackFilterGroups extends BaseFilter
 {
     /**
      * @var string
      */
-    protected $sanitizeSearchPrefix='#';
+    protected $sanitizeSearchPrefix = '#';
 
     /**
      * SlackFilterChannel constructor.
@@ -33,13 +30,12 @@ class SlackFilterGroups extends BaseFilter
      * @return Collection
      * @throws Exception
      */
-    public function get():Collection
+    public function get(): Collection
     {
-        try{
+        try {
             return collect(json_decode($this->client->get(config('slack-message.slack_groups_url'))->getBody()->getContents())->groups);
-        }catch (Exception $exception){
+        } catch (Exception $exception) {
             throw new Exception($exception->getMessage());
         }
     }
-
 }

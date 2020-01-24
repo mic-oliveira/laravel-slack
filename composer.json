@@ -16,10 +16,12 @@
     "require": {
         "php": ">=7.2",
         "ext-json": "*",
-        "guzzlehttp/guzzle": "^7.0@dev"
+        "guzzlehttp/guzzle": "^6.3",
+        "illuminate/support": "^5.5"
     },
     "require-dev": {
-        "orchestra/testbench": "^5.0@dev"
+        "orchestra/testbench": "~3.5",
+        "phpunit/phpunit": "^6.5"
     },
     "extra": {
         "laravel": {

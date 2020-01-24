@@ -1,13 +1,10 @@
 <?php
 
-
 namespace SLackMessage\Test;
 
-use GuzzleHttp\Client;
 use Illuminate\Contracts\Container\BindingResolutionException;
 use Orchestra\Testbench\TestCase;
 use SlackMessage\Models\BaseMessage;
-use SlackMessage\Models\SlackFilterChannel;
 use SlackMessage\Providers\SlackProvider;
 
 class SlackChannelTest extends TestCase
@@ -30,7 +27,7 @@ class SlackChannelTest extends TestCase
     protected function getPackageProviders($app)
     {
         return [
-            SlackProvider::class
+            SlackProvider::class,
         ];
     }
 
@@ -40,13 +37,11 @@ class SlackChannelTest extends TestCase
     }
 
     /**
-     *
      * @throws BindingResolutionException
      */
     public function testSend()
     {
-        dump(BaseMessage::to(['#geral','#outros-assuntos','#academiafrontend','@Michael de Oliveira Ferreira'])->send('TESTE'));
+        dump(BaseMessage::to(['#geral', '#outros-assuntos', '#academiafrontend', '@Michael de Oliveira Ferreira'])->send('TESTE'));
         self::assertTrue(true);
     }
-
 }
