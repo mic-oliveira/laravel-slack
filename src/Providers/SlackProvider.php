@@ -66,8 +66,7 @@ class SlackProvider extends ServiceProvider
                                 'headers'   =>  [
                                     'Authorization' =>  'Bearer '.config('slack-message.slack_bot_token'),
                                     'Accept'        =>  'application/json',
-                                    'Content-type'  =>  'application/json',
-                                    'User-Agent'    =>  'PostmanRuntime/7.21.0',
+                                    'Content-type'  =>  'application/json'
                                 ],
                                 'verify'    =>  false,
                             ]
