@@ -1,1 +1,5 @@
-./vendor/*
+vendor/
+.idea/
+reports/
+.phpunit.result.cache
+.env
