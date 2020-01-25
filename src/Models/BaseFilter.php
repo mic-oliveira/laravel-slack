@@ -4,6 +4,7 @@ namespace SlackMessage\Models;
 
 use GuzzleHttp\Client;
 use Illuminate\Support\Collection;
+use SlackMessage\Repository\SlackApi;
 
 /**
  * Class BaseFilter.
@@ -30,12 +31,7 @@ abstract class BaseFilter
      */
     protected $filterKeys = null;
 
-    /**
-     * BaseFilter constructor.
-     *
-     * @param Client $client
-     */
-    public function __construct(Client $client)
+    public function __construct(SlackApi $client)
     {
         $this->mergeKeys();
         $this->client = $client;
@@ -50,7 +46,7 @@ abstract class BaseFilter
      * @param  array $array
      * @return Collection
      */
-    public function filter($array = []): Collection
+    public function filter(array $array = []): Collection
     {
         $list = $this->get();
         $filtered = collect();
