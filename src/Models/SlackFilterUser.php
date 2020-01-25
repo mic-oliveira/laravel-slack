@@ -2,15 +2,15 @@
 
 namespace SlackMessage\Models;
 
-use Exception;
-use GuzzleHttp\Client;
 use Illuminate\Support\Collection;
+use SlackMessage\Exceptions\ErrorFetchingUsersException;
 
 /**
  * Class SlackFilterUser.
  */
 class SlackFilterUser extends BaseFilter
 {
+
     /**
      * @var
      */
@@ -22,25 +22,11 @@ class SlackFilterUser extends BaseFilter
     protected $filterKeys = 'real_name';
 
     /**
-     * SlackFilterUser constructor.
-     *
-     * @param Client $client
-     */
-    public function __construct(Client $client)
-    {
-        parent::__construct($client);
-    }
-
-    /**
      * @return Collection
-     * @throws Exception
+     * @throws ErrorFetchingUsersException
      */
     public function get(): Collection
     {
-        try {
-            return collect(json_decode($this->client->get(config('slack-message.slack_users_url'))->getBody()->getContents())->members);
-        } catch (Exception $exception) {
-            throw new Exception($exception->getMessage());
-        }
+        return $this->client->getUsers();
     }
 }

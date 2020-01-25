@@ -2,13 +2,9 @@
 
 namespace SlackMessage\Models;
 
-use Exception;
-use GuzzleHttp\Client;
 use Illuminate\Support\Collection;
+use SlackMessage\Exceptions\ErrorFetchingGroupsException;
 
-/**
- * Class SlackFilterGroups.
- */
 class SlackFilterGroups extends BaseFilter
 {
     /**
@@ -17,25 +13,11 @@ class SlackFilterGroups extends BaseFilter
     protected $sanitizeSearchPrefix = '#';
 
     /**
-     * SlackFilterChannel constructor.
-     *
-     * @param Client $client
-     */
-    public function __construct(Client $client)
-    {
-        parent::__construct($client);
-    }
-
-    /**
      * @return Collection
-     * @throws Exception
+     * @throws ErrorFetchingGroupsException
      */
     public function get(): Collection
     {
-        try {
-            return collect(json_decode($this->client->get(config('slack-message.slack_groups_url'))->getBody()->getContents())->groups);
-        } catch (Exception $exception) {
-            throw new Exception($exception->getMessage());
-        }
+        return $this->client->getGroups();
     }
 }
