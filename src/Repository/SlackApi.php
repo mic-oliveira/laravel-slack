@@ -27,4 +27,11 @@ interface SlackApi
      * @throws ErrorFetchingGroupsException
      */
     public function getGroups(): Collection;
+
+    /**
+     * @param string $channelId
+     * @param string $content
+     * @return string
+     */
+   public function post(string $channelId, string $content): string;
 }
