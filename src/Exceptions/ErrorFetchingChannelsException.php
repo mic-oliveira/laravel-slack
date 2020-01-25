@@ -3,6 +3,7 @@
 namespace SlackMessage\Exceptions;
 
 use Exception;
+use Throwable;
 
 class ErrorFetchingChannelsException extends Exception
 {
