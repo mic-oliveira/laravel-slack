@@ -12,10 +12,12 @@ use Exception;
 class SlackApiRepository implements SlackApi
 {
     private $client;
+    private $token;
 
     public function __construct(Client $client)
     {
         $this->client = $client;
+        $this->token = ['token' => config('slack-message.slack_bot_token')];
     }
 
     /**
@@ -24,7 +26,7 @@ class SlackApiRepository implements SlackApi
      */
     public function getUsers(): Collection
     {
-        $getUsers = $this->client->get(config('slack-message.slack_users_url'));
+        $getUsers = $this->client->get(config('slack-message.slack_users_url', $this->token));
         $response = $getUsers->getBody()->getContents();
 
         try {
@@ -41,7 +43,7 @@ class SlackApiRepository implements SlackApi
     public function getChannels(): Collection
     {
         $getChannels = config('slack-message.slack_channels_url');
-        $response = $this->client->get($getChannels)->getBody()->getContents();
+        $response = $this->client->get($getChannels, $this->token)->getBody()->getContents();
 
         try {
             return collect(json_decode($response)->channels);
@@ -57,7 +59,7 @@ class SlackApiRepository implements SlackApi
     public function getGroups(): Collection
     {
         $getGroups = config('slack-message.slack_groups_url');
-        $response = $this->client->get($getGroups)->getBody()->getContents();
+        $response = $this->client->get($getGroups, $this->token)->getBody()->getContents();
 
         try {
             return collect(json_decode($response)->groups);
@@ -75,8 +77,9 @@ class SlackApiRepository implements SlackApi
    {
        $url = config('slack-message.slack_post_message');
        $data = [
-           'channel'   =>  $channelId,
-           'text'      =>  $content,
+           'channel'   => $channelId,
+           'text'      => $content,
+           'token'     => $this->token['token'],
        ];
        return $this->client->post(
            $url,
