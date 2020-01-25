@@ -65,4 +65,28 @@ class SlackApiRepository implements SlackApi
             throw new ErrorFetchingGroupsException($exception->getMessage());
         }
     }
+
+    /**
+     * @param string $channelId
+     * @param string $content
+     * @return string
+     */
+   public function post(string $channelId, string $content): string
+   {
+       $url = config('slack-message.slack_post_message');
+       $data = [
+           'channel'   =>  $channelId,
+           'text'      =>  $content,
+       ];
+       return $this->client->post(
+           $url,
+           [
+               'headers'   =>  [
+                   'Accept'        =>  'application/json',
+                   'Content-Type'  =>  'application/json',
+               ],
+               'json' => $data,
+           ]
+       )->getBody()->getContents();
+   }
 }
