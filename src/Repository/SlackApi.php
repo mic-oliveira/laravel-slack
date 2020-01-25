@@ -3,6 +3,7 @@
 namespace SlackMessage\Repository;
 
 use Illuminate\Support\Collection;
+use SlackMessage\Exceptions\ErrorFetchingChannelsException;
 use SlackMessage\Exceptions\ErrorFetchingUsersException;
 
 interface SlackApi
@@ -13,4 +14,10 @@ interface SlackApi
      * @throws ErrorFetchingUsersException
      */
     public function getUsers(): Collection;
+
+    /**
+     * @return Collection
+     * @throws ErrorFetchingChannelsException
+     */
+    public function getChannels(): Collection;
 }

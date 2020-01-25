@@ -4,6 +4,7 @@ namespace SlackMessage\Repository;
 
 use GuzzleHttp\Client;
 use Illuminate\Support\Collection;
+use SlackMessage\Exceptions\ErrorFetchingChannelsException;
 use SlackMessage\Exceptions\ErrorFetchingUsersException;
 use Exception;
 
@@ -32,4 +33,19 @@ class SlackApiRepository implements SlackApi
         }
     }
 
+    /**
+     * @return Collection
+     * @throws ErrorFetchingChannelsException
+     */
+    public function getChannels(): Collection
+    {
+        $getChannels = config('slack-message.slack_channels_url');
+        $response = $this->client->get($getChannels)->getBody()->getContents();
+
+        try {
+            return collect(json_decode($response)->channels);
+        } catch (Exception $exception) {
+            throw new ErrorFetchingChannelsException(sprintf('%s', $response));
+        }
+    }
 }
