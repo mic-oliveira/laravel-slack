@@ -23,6 +23,10 @@
         "orchestra/testbench": "~3.5",
         "phpunit/phpunit": "^6.5"
     },
+    "scripts": {
+        "coverage": "phpunit --coverage-html reports/",
+        "test": "phpunit tests/"
+    },
     "extra": {
         "laravel": {
             "providers": [
