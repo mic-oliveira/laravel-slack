@@ -48,6 +48,11 @@ class SlackFilterChannelTest extends TestCase
         self::assertCount(1, $this->channelSlack->filter(['#general']));
     }
 
+    public function testFindTwoChannels()
+    {
+        self::assertCount(2, $this->channelSlack->filter(['#general', '#pokemon']));
+    }
+
     public function testReturnEmptyIfTheChannelDoesntExists()
     {
         self::assertCount(0, $this->channelSlack->filter(['#IdoNotExist']));

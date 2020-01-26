@@ -49,11 +49,11 @@ class SlackChannelTest extends TestCase
         self::assertCount(1, $sendTo);
     }
 
-//    public function testShouldSendOneMessageToTwoChannels()
-//    {
-//        $sendTo = $this->channelSlack->to(['#general', '#random'])->send('TESTE');
-//        self::assertCount(2, $sendTo);
-//    }
+    public function testShouldSendOneMessageToTwoChannels()
+    {
+        $sendTo = $this->channelSlack->to(['#general', '#pokemon'])->send('TESTE');
+        self::assertCount(2, $sendTo);
+    }
 }
 
 class SlackStub implements SlackApi
@@ -76,7 +76,17 @@ class SlackStub implements SlackApi
                 'is_general' => true,
                 'unlinked' => 0,
                 'creator' => 'UT3S9SY48',
-            ]
+            ],
+            [
+                'id' => 'CSR9999',
+                'name' => 'pokemon',
+                'is_channel' => true,
+                'created' => 1579944022,
+                'is_archived' => false,
+                'is_general' => true,
+                'unlinked' => 0,
+                'creator' => 'UT3S',
+            ],
         ]);
     }
 

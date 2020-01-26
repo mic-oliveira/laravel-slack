@@ -54,8 +54,11 @@ abstract class BaseFilter
             ->each(
                 function ($key) use ($list, $filtered, $array) {
                     $search = $list->whereIn($key, $this->sanitizeSearch($array));
+
                     if ($search->count()) {
-                        $filtered->push($search->first());
+                        foreach ($search as $found) {
+                            $filtered->push($found);
+                        }
                     }
                 }
             );
