@@ -4,7 +4,7 @@ namespace SLackMessage\Test;
 
 use Orchestra\Testbench\TestCase;
 use SlackMessage\Models\SlackFilterChannel;
-use SlackMessage\Repository\SlackApiRepository;
+use SlackMessage\Repository\SlackApi;
 
 class SlackFilterChannelTest extends TestCase
 {
@@ -15,7 +15,7 @@ class SlackFilterChannelTest extends TestCase
     {
         parent::setUp();
 
-        $this->client = $this->createMock(SlackApiRepository::class);
+        $this->client = $this->createMock(SlackApi::class);
         $this->client->method('getChannels')
             ->willReturn(collect([
                 [
@@ -46,6 +46,11 @@ class SlackFilterChannelTest extends TestCase
     public function testFindChannelsBasedOnTheChannelName()
     {
         self::assertCount(1, $this->channelSlack->filter(['#general']));
+    }
+
+    public function testFindTwoChannels()
+    {
+        self::assertCount(2, $this->channelSlack->filter(['#general', '#pokemon']));
     }
 
     public function testReturnEmptyIfTheChannelDoesntExists()

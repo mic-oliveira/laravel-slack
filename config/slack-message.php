@@ -30,7 +30,7 @@ return [
     |
     |
      */
-    'slack_post_message' => env('SLACK_BOT_MESSAGE', 'hello world!'),
+    'slack_post_message_url' => env('SLACK_BOT_MESSAGE', 'https://slack.com/api/chat.postMessage'),
 
     /*
     |----------------------------------------------------------------------------------

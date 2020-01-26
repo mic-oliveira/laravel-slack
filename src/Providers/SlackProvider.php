@@ -31,7 +31,7 @@ class SlackProvider extends ServiceProvider
      */
     public function __construct($app)
     {
-        $this->path = __DIR__.'/../../config/config.php';
+        $this->path = __DIR__ . '/../../config/slack-message.php';
         parent::__construct($app);
     }
 
@@ -75,7 +75,6 @@ class SlackProvider extends ServiceProvider
                 }
             );
         $this->app->alias(Slack::class, 'slack');
-        parent::register();
     }
 
     /**
