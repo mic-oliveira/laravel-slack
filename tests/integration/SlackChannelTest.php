@@ -43,15 +43,27 @@ class SlackChannelTest extends TestCase
         parent::getEnvironmentSetUp($app);
     }
 
-    public function testShouldSendOneMessageToOneChannel()
+    public function testShouldSendOneMessageToOneChannelUsingArrayAsChannelName()
     {
         $sendTo = $this->channelSlack->to(['#general'])->send('TESTE');
         self::assertCount(1, $sendTo);
     }
 
-    public function testShouldSendOneMessageToTwoChannels()
+    public function testShouldSendOneMessageToOneChannelUsingStringAsChannelName()
+    {
+        $sendTo = $this->channelSlack->to('#pokemon')->send('TESTE');
+        self::assertCount(1, $sendTo);
+    }
+
+    public function testShouldSendOneMessageToTwoChannelsUsingArrayAsChannelName()
     {
         $sendTo = $this->channelSlack->to(['#general', '#pokemon'])->send('TESTE');
+        self::assertCount(2, $sendTo);
+    }
+
+    public function testShouldSendOneMessageToTwoChannelsUsingStringAsChannelName()
+    {
+        $sendTo = $this->channelSlack->to('#general', '#pokemon')->send('TESTE');
         self::assertCount(2, $sendTo);
     }
 }
