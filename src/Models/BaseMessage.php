@@ -3,7 +3,6 @@
 namespace SlackMessage\Models;
 
 use Exception;
-use Illuminate\Contracts\Container\BindingResolutionException;
 use Illuminate\Support\Collection;
 use SlackMessage\Repository\SlackApi;
 
@@ -32,7 +31,6 @@ class BaseMessage
     /**
      * @param  array|Collection|string $search
      * @return static
-     * @throws BindingResolutionException
      */
     public function to($search): self
     {
@@ -43,9 +41,9 @@ class BaseMessage
         $search = is_array($search) ? $search : func_get_args();
 
         $this->to = collect([])
-            ->concat(app()->make(SlackFilterChannel::class)->filter($search))
-            ->concat(app()->make(SlackFilterGroups::class)->filter($search))
-            ->concat(app()->make(SlackFilterUser::class)->filter($search));
+            ->concat((new SlackFilterChannel($this->client))->filter($search))
+            ->concat((new SlackFilterGroups($this->client))->filter($search))
+            ->concat((new SlackFilterUser($this->client))->filter($search));
 
         return $this;
     }
@@ -59,8 +57,8 @@ class BaseMessage
         $response = collect([]);
         $this->to->map(
             function ($channel) use ($message, $response) {
-                $post = $this->client->post($channel->id, $message);
-                $response->concat([$post]);
+                $post = $this->client->post($channel['id'], $message);
+                $response->push($post);
             }
         );
 

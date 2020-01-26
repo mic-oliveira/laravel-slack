@@ -4,7 +4,7 @@ namespace SLackMessage\Test;
 
 use Orchestra\Testbench\TestCase;
 use SlackMessage\Models\SlackFilterChannel;
-use SlackMessage\Repository\SlackApiRepository;
+use SlackMessage\Repository\SlackApi;
 
 class SlackFilterChannelTest extends TestCase
 {
@@ -15,7 +15,7 @@ class SlackFilterChannelTest extends TestCase
     {
         parent::setUp();
 
-        $this->client = $this->createMock(SlackApiRepository::class);
+        $this->client = $this->createMock(SlackApi::class);
         $this->client->method('getChannels')
             ->willReturn(collect([
                 [

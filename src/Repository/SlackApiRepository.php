@@ -31,7 +31,8 @@ class SlackApiRepository implements SlackApi
         $response = $getUsers->getBody()->getContents();
 
         try {
-            return collect(json_decode($response)->members);
+            $members = json_decode($response, true);
+            return collect($members['members']);
         } catch (Exception $exception) {
             throw new ErrorFetchingUsersException(sprintf('%s', $response));
         }
@@ -47,7 +48,8 @@ class SlackApiRepository implements SlackApi
         $response = $this->client->get($getChannels, $this->token)->getBody()->getContents();
 
         try {
-            return collect(json_decode($response)->channels);
+            $channels = json_decode($response, true);
+            return collect($channels['channels']);
         } catch (Exception $exception) {
             throw new ErrorFetchingChannelsException(sprintf('%s', $response));
         }
@@ -63,7 +65,8 @@ class SlackApiRepository implements SlackApi
         $response = $this->client->get($getGroups, $this->token)->getBody()->getContents();
 
         try {
-            return collect(json_decode($response)->groups);
+            $groups = json_decode($response, true);
+            return collect($groups['groups']);
         } catch (Exception $exception) {
             throw new ErrorFetchingGroupsException($exception->getMessage());
         }
