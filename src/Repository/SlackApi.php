@@ -6,6 +6,7 @@ use Illuminate\Support\Collection;
 use SlackMessage\Exceptions\ErrorFetchingChannelsException;
 use SlackMessage\Exceptions\ErrorFetchingGroupsException;
 use SlackMessage\Exceptions\ErrorFetchingUsersException;
+use SlackMessage\Exceptions\ErrorPostingMessageException;
 
 interface SlackApi
 {
@@ -31,6 +32,7 @@ interface SlackApi
     /**
      * @param string $channelId
      * @param string $content
+     * @throws ErrorPostingMessageException
      * @return string
      */
    public function post(string $channelId, string $content): string;

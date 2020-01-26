@@ -8,6 +8,7 @@ use SlackMessage\Exceptions\ErrorFetchingChannelsException;
 use SlackMessage\Exceptions\ErrorFetchingGroupsException;
 use SlackMessage\Exceptions\ErrorFetchingUsersException;
 use Exception;
+use SlackMessage\Exceptions\ErrorPostingMessageException;
 
 class SlackApiRepository implements SlackApi
 {
@@ -72,24 +73,38 @@ class SlackApiRepository implements SlackApi
      * @param string $channelId
      * @param string $content
      * @return string
+     * @throws ErrorPostingMessageException
      */
    public function post(string $channelId, string $content): string
    {
-       $url = config('slack-message.slack_post_message');
+       $url = config('slack-message.slack_post_message_url');
        $data = [
            'channel'   => $channelId,
            'text'      => $content,
            'token'     => $this->token['token'],
        ];
-       return $this->client->post(
+
+       $response = $this->client->post(
            $url,
            [
-               'headers'   =>  [
-                   'Accept'        =>  'application/json',
-                   'Content-Type'  =>  'application/json',
+               'headers' => [
+                   'Accept' => 'application/json',
+                   'Content-Type' => 'application/json',
                ],
                'json' => $data,
            ]
-       )->getBody()->getContents();
+       );
+
+       $content = $response->getBody()->getContents();
+
+       if ($response->getStatusCode() !== 200) {
+           throw new ErrorPostingMessageException($content);
+       }
+
+       if (!json_decode($content)->ok) {
+           throw new ErrorPostingMessageException($content);
+       }
+
+       return $content;
    }
 }

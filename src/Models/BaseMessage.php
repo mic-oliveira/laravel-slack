@@ -56,11 +56,11 @@ class BaseMessage
      */
     public function send(string $message)
     {
-        $response = collect();
+        $response = collect([]);
         $this->to->map(
             function ($channel) use ($message, $response) {
                 $post = $this->client->post($channel->id, $message);
-                $response->add($post);
+                $response->concat([$post]);
             }
         );
 
