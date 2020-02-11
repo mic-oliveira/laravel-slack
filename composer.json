@@ -16,12 +16,12 @@
     "require": {
         "php": ">=7.2",
         "ext-json": "*",
-        "guzzlehttp/guzzle": "^6.3",
-        "illuminate/support": "~5.5"
+        "guzzlehttp/guzzle": "^6.3"
     },
     "require-dev": {
         "orchestra/testbench": "~3.5",
-        "phpunit/phpunit": "^6.5"
+        "phpunit/phpunit": "^6.5",
+        "illuminate/support": "~5.5"
     },
     "scripts": {
         "coverage": "phpunit --coverage-html reports/",
