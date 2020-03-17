@@ -16,11 +16,11 @@
     "require": {
         "php": ">=7.2",
         "ext-json": "*",
-        "guzzlehttp/guzzle": "^6.3"
+        "guzzlehttp/guzzle": "~6.3"
     },
     "require-dev": {
         "orchestra/testbench": "~3.5",
-        "phpunit/phpunit": "^6.5",
+        "phpunit/phpunit": "^6.5" | "~7.0.*" | "~8.0.*",
         "illuminate/support": "~5.5"
     },
     "scripts": {
