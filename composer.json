@@ -7,7 +7,7 @@
             "email": "oliveiramichael@outlook.com"
         }
     ],
-    "minimum-stability": "dev",
+    "minimum-stability": "stable",
     "autoload": {
         "psr-4": {
             "SlackMessage\\": "./src"
