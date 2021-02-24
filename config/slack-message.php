@@ -50,7 +50,7 @@ return [
     |
     |
      */
-    'slack_channels_url' => env('SLACK_BOT_CHANNELS_API_URL', 'https://slack.com/api/channels.list'),
+    'slack_channels_url' => env('SLACK_BOT_CHANNELS_API_URL', 'https://slack.com/api/conversations.list'),
 
     /*
     |----------------------------------------------------------------------------------
@@ -60,7 +60,7 @@ return [
     |
     |
      */
-    'slack_groups_url' => env('SLACK_BOT_GROUPS_API_URL', 'https://slack.com/api/groups.list'),
+    'slack_groups_url' => env('SLACK_BOT_GROUPS_API_URL', 'https://slack.com/api/conversations.list'),
 
     /*
     |----------------------------------------------------------------------------------
@@ -70,7 +70,7 @@ return [
     |
     |
      */
-    'slack_users_url' => env('SLACK_BOT_USER_LIST_API_URL', 'https://slack.com/api/users.list'),
+    'slack_users_url' => env('SLACK_BOT_USER_LIST_API_URL', 'https://slack.com/api/conversations.list'),
 
     /*
     |----------------------------------------------------------------------------------
