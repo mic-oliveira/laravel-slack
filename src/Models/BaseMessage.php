@@ -42,7 +42,6 @@ class BaseMessage
 
         $this->to = collect([])
             ->concat((new SlackFilterChannel($this->client))->filter($search))
-            ->concat((new SlackFilterGroups($this->client))->filter($search))
             ->concat((new SlackFilterUser($this->client))->filter($search));
 
         return $this;
