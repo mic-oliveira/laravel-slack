@@ -70,7 +70,7 @@ return [
     |
     |
      */
-    'slack_users_url' => env('SLACK_BOT_USER_LIST_API_URL', 'https://slack.com/api/conversations.list'),
+    'slack_users_url' => env('SLACK_BOT_USER_LIST_API_URL', 'https://slack.com/api/users.list'),
 
     /*
     |----------------------------------------------------------------------------------

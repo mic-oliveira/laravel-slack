@@ -66,7 +66,7 @@ class SlackApiRepository implements SlackApi
 
         try {
             $groups = json_decode($response, true);
-            return collect($groups['groups']);
+            return collect($groups['channels']);
         } catch (Exception $exception) {
             throw new ErrorFetchingGroupsException($exception->getMessage());
         }
